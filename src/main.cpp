@@ -270,10 +270,12 @@ void setup() {
     gfx->setCursor(0, 0);
     gfx->setTextSize(2);
   
+    WiFi.mode(WIFI_STA);
 	WiFi.begin(ssid, password);
 
 	gfx->println("");
     gfx->println("");
+    gfx->println("   ssid: "+String(ssid));
 	gfx->println("   Connecting to WiFi");
 
     gfx->print("   ");
@@ -283,7 +285,7 @@ void setup() {
 	}
 	gfx->println("connected!");
 
-    IPAddress IP = WiFi.softAPIP();
+    IPAddress IP = WiFi.localIP();
     gfx->println("   " + String(IP.toString().c_str()));
 
 	vTaskDelay(1000 / portTICK_PERIOD_MS);
