@@ -209,7 +209,7 @@ Arduino_ESP32RGBPanel *rgbpanel = new Arduino_ESP32RGBPanel(
     LCD_R0 /* R0 */, LCD_R1 /* R1 */, LCD_R2 /* R2 */, LCD_R3 /* R3 */, LCD_R4 /* R4 */,
     1 /* hsync_polarity */, 20 /* hsync_front_porch */, 1 /* hsync_pulse_width */, 1 /* hsync_back_porch */,
     1 /* vsync_polarity */, 30 /* vsync_front_porch */, 1 /* vsync_pulse_width */, 10 /* vsync_back_porch */,
-    10 /* pclk_active_neg */, 6000000L /* prefer_speed */, false /* useBigEndian */,
+    10 /* pclk_active_neg */, 6000000L /* prefer_speed */, true /* useBigEndian */,
     0 /* de_idle_high*/, 0 /* pclk_idle_high */);
 Arduino_RGB_Display *gfx = new Arduino_RGB_Display(
     LCD_WIDTH /* width */, LCD_HEIGHT /* height */, rgbpanel, 0 /* rotation */, true /* auto_flush */,
@@ -227,17 +227,6 @@ void advertiseTagTask(void *parameter) {
 void drawImage(uint8_t *buffer, uint8_t dataType) {
 
     uint16_t* data = (uint16_t*)(buffer);
-    
-    for (int16_t j = 0; j < 480; j++)
-    {
-        for (int16_t i = 0; i < 480; i++)
-        {
-            uint16_t color = *data;
-            color = color<<8 | color>>8;
-            *data = color;
-            data++;
-        }
-    }
 
     gfx->draw16bitRGBBitmap(0, 0, (uint16_t *)buffer, 480, 480);
 
