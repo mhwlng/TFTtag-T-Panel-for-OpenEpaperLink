@@ -197,11 +197,6 @@ void prepareExternalDataAvail(struct pendingData *pending, IPAddress remoteIP) {
                             if (size > 0) {
                                 auto c = stream->readBytes(cur_buffer, ((size > CHUNK_SIZE) ? CHUNK_SIZE : size));
                                 cur_buffer = cur_buffer + c;
-                                auto totalSize = cur_buffer - buffer;
-                                if (totalSize + 2 * CHUNK_SIZE > bufferSize)
-                                {
-                                    cur_buffer = buffer;
-                                }
 
                                 success &= c > 0;
 
